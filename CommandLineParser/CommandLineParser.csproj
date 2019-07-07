@@ -15,6 +15,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>command-line command line parser</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <PackageReleaseNotes>Renamed namespace from CommandLineParser to SoftCircuits.CommandLineParser.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

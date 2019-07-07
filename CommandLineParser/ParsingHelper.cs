@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace CommandLineParser
+namespace SoftCircuits.CommandLineParser
 {
     /// <summary>
     /// This class provides many methods and conveniences for parsing text. In particular,

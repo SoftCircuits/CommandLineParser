@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CommandLineParser
+namespace SoftCircuits.CommandLineParser
 {
     /// <summary>
     /// Parses a given command-line into any number of arguments.

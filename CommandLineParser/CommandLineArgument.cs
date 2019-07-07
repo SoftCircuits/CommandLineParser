@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 //
 
-namespace CommandLineParser
+namespace SoftCircuits.CommandLineParser
 {
     /// <summary>
     /// Represents a single command-line argument.

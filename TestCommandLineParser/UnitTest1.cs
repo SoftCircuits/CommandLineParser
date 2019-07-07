@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 //
 
-using CommandLineParser;
+using SoftCircuits.CommandLineParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
