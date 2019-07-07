@@ -1,5 +1,11 @@
 # CommandLineParser
 
+[![NuGet version (SoftCircuits.CommandLineParser)](https://img.shields.io/nuget/v/SoftCircuits.CommandLineParser.svg?style=flat-square)](https://www.nuget.org/packages/SoftCircuits.CommandLineParser/)
+
+```
+Install-Package SoftCircuits.CommandLineParser
+```
+
 The `CommandLine` class is a lightweight class library that makes it easy to parse a desktop application's command-line into any number of arguments.
 
 The code distinguishes between arguments and flag arguments (or flags). The difference between the two is that a flag argument is an argument immediately preceded by a hypen (-) or forward slash (/). A flag argument is sometimes called a switch and is normally used to enable or disable an application setting.
