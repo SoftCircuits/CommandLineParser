@@ -6,19 +6,19 @@
 Install-Package SoftCircuits.CommandLineParser
 ```
 
-The `CommandLine` class is a lightweight class library that makes it easy to parse a desktop application's command-line into any number of arguments.
+CommandLineParser is a lightweight class library that makes it easy to parse a desktop application's command-line into any number of arguments.
 
-The code distinguishes between arguments and flag arguments (or flags). The difference between the two is that a flag argument is an argument immediately preceded by a hypen (-) or forward slash (/). A flag argument is sometimes called a switch and is normally used to enable or disable an application setting.
+The code distinguishes between arguments and flag arguments (also called flags or switches). The difference between the two is that a flag argument is an argument immediately preceded by a hypen (-) or forward slash (/). Flag argument are normally used to enable or disable an application setting.
 
 The code also supports extended arguments. Extended arguments appear after an argument or flag argument and use a colon (:) as a delimiter. Consider the following argument:
 
 `-log:off`
 
-If extended arguments are enabled, the argument is "log". It's a flag argument because it was preceded with a hyphen. And "off" is the extended argument. If extended arguments are not enabled, the argument would be "log:off". Extended arguments are enabled from the arguments passed to the `CommandLine` constructor.
+If extended arguments are enabled, the argument is "log", it's a flag argument because it was preceded with a hyphen, and "off" is the extended argument. If extended arguments are not enabled, the argument would be "log:off". Extended arguments are enabled via an argument passed to the `CommandLine` constructor.
 
-Any argument, flag or extended argument can be enclosed in single or double quotes, providing support for arguments that contain whitespace or other special characters.
+Any argument, flag argument, or extended argument can be enclosed in single or double quotes, providing support for arguments that contain whitespace or other special characters. (In the case of flag arguments, the hyphen or forward slash must not be enclosed in quotes.)
 
-**IMPORTANT:** Note that the first argument is always ignored. This is because `Environment.CommandLine` always includes the application name (with or without a full path) as the first item on the command line. If you obtain the command line from somewhere else, you'll need to ensure it follows this same standard, or else add a placeholder application name at the start of the command line.
+**IMPORTANT:** Note that the first argument is always discarded. This is because `Environment.CommandLine` always includes the application name (with or without a full path) as the first item on the command line. If you obtain the command line from somewhere else, you'll need to ensure it follows this same convention, or add a placeholder application name at the start of your command line.
 
 # Usage
 
@@ -42,14 +42,11 @@ foreach (CommandLineArgument argument in commandLine.Arguments)
 }
 ```
 
-Once a `CommandLine` instance has been created, you can use it to process additional command lines by using the `ParseCommandLine()` method.
+After a `CommandLine` instance has been created, you can process additional command lines by using the `ParseCommandLine()` method.
 
-Additional methods are provided to simply processing a command line. You can use the `HasArgument()` method to determine if a particular argument has been specified. Similiarly, use the `HasFlagArgument()` method to determine if a particular flag argument has been specified. If you need to further inspect the argument, you can instead use the `GetArgument()` and `GetFlagArgument()` methods.
+Additional methods are provided to simply processing a command line. You can use the `HasArgument()` method to determine if a particular argument has been specified. Similiarly, use the `HasFlagArgument()` method to determine if a particular flag argument has been specified. If you need to inspect the arguments, you can instead use the `GetArgument()` and `GetFlagArgument()` methods.
 
-You might also find it useful to process regular arguments and flag arguments separately. Use the `GetArguments()` and `GetFlagArguments()` methods to retrieve
-
-
-
+You might also find it useful to process regular arguments and flag arguments separately. Use the `GetArguments()` method to retrieve all of the regular arguments, and the `GetFlagArguments()` method to retrieve all of the flag arguments.
 
 # Examples
 
