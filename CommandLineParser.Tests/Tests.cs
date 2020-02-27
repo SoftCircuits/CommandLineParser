@@ -1,20 +1,22 @@
-// Copyright (c) 2019 Jonathan Wood (www.softcircuits.com)
+// Copyright (c) 2019-2020 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
-using SoftCircuits.CommandLineParser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SoftCircuits.CommandLineParser;
 using System.Linq;
 
-namespace TestCommandLineParser
+namespace CommandLineParser.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class Tests
     {
         [TestMethod]
         public void TestArguments()
         {
-            CommandLine cl = new CommandLine("ExeName abc \"def ghi\" \"jkl\":abcdef", true);
+            CommandLine cl = new CommandLine(true);
+            cl.Parse("abc \"def ghi\" \"jkl\":abcdef");
+
             Assert.AreEqual(3, cl.Arguments.Count);
             Assert.AreEqual("abc", cl.Arguments[0].Argument);
             Assert.AreEqual(false, cl.Arguments[0].IsFlag);
@@ -45,7 +47,9 @@ namespace TestCommandLineParser
         [TestMethod]
         public void TestFlags()
         {
-            CommandLine cl = new CommandLine("ExeName -a/b/c-d -e:arg/f:arg/g:arg-h:arg -i /j -k:\"a b c\"/l:\"a b c\" /m-n-o/p", true);
+            CommandLine cl = new CommandLine(true);
+            cl.Parse("-a/b/c-d -e:arg/f:arg/g:arg-h:arg -i /j -k:\"a b c\"/l:\"a b c\" /m-n-o/p");
+
             Assert.AreEqual(16, cl.Arguments.Count);
             Assert.AreEqual("a", cl.Arguments[0].Argument);
             Assert.AreEqual(true, cl.Arguments[0].IsFlag);
@@ -144,7 +148,8 @@ namespace TestCommandLineParser
         [TestMethod]
         public void TestExtendedArguments()
         {
-            CommandLine cl = new CommandLine("ExeName -mode:read -mode2:write", false);
+            CommandLine cl = new CommandLine(false);
+            cl.Parse("-mode:read -mode2:write");
             Assert.AreEqual(2, cl.Arguments.Count);
             Assert.AreEqual(true, cl.Arguments[0].IsFlag);
             Assert.AreEqual("mode:read", cl.Arguments[0].Argument);
@@ -157,7 +162,8 @@ namespace TestCommandLineParser
             CollectionAssert.AreEqual(new string[] { "mode:read", "mode2:write" },
                 cl.GetFlagArguments().Select(a => a.Argument).ToArray());
 
-            cl = new CommandLine("ExeName -mode:read -mode2:write", true);
+            cl = new CommandLine(true);
+            cl.Parse("  -mode:read -mode2:write  ");
             Assert.AreEqual(2, cl.Arguments.Count);
             Assert.AreEqual(true, cl.Arguments[0].IsFlag);
             Assert.AreEqual("mode", cl.Arguments[0].Argument);

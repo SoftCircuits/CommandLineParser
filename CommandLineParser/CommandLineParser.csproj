@@ -7,17 +7,19 @@
     <PackageId>SoftCircuits.CommandLineParser</PackageId>
     <Authors>Jonathan Wood</Authors>
     <Company>SoftCircuits</Company>
-    <Description>Lightweight command-line parser. Supports regular arguments, flag arguments and extended arguments (in the form: -mode:read). Arguments, flag arguments, and extended arguments can all be wrapped in quotes in order to include spaces.</Description>
-    <Copyright>Copyright © 2019 SoftCircuits</Copyright>
+    <Description>Simple and lightweight command-line parser. Supports regular arguments, flag arguments and extended arguments (in the form: -mode:extArg). Arguments, flag arguments, and extended arguments can all be wrapped in quotes in order to include whitespace.</Description>
+    <Copyright>Copyright © 2019-2020 SoftCircuits</Copyright>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/SoftCircuits/CommandLineParser</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SoftCircuits/CommandLineParser</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>command-line command line parser</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <PackageReleaseNotes>Renamed namespace from CommandLineParser to SoftCircuits.CommandLineParser.</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <PackageReleaseNotes>1.0.2; Constructor no longer accepts a command-line argument (use one of two Parse() methods to perform actual parsing); Reworked unit tests; Added package icon.</PackageReleaseNotes>
+    <PackageIcon>Logo_64x64.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +27,14 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="..\Logo_64x64.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SoftCircuits.Parsing.Helper" Version="1.0.10" />
   </ItemGroup>
 
 </Project>
