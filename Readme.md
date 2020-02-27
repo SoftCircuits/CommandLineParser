@@ -6,27 +6,30 @@
 Install-Package SoftCircuits.CommandLineParser
 ```
 
-The `CommandLine` class is a lightweight class library that makes it easy to parse a desktop application's command-line into any number of arguments.
+# Introduction
 
-The code distinguishes between arguments and flag arguments (or flags). The difference between the two is that a flag argument is an argument immediately preceded by a hypen (-) or forward slash (/). A flag argument is sometimes called a switch and is normally used to enable or disable an application setting.
+CommandLineParser is a simple and lightweight class library that makes it easy to parse a Windows application's command line.
+
+The code distinguishes between arguments and flag arguments (also called flags or switches). The difference between the two is that a flag argument is immediately preceded by a hypen (-) or forward slash (/). Flag argument are normally used to enable or disable an application setting.
 
 The code also supports extended arguments. Extended arguments appear after an argument or flag argument and use a colon (:) as a delimiter. Consider the following argument:
 
 `-log:off`
 
-If extended arguments are enabled, the argument is "log". It's a flag argument because it was preceded with a hyphen. And "off" is the extended argument. If extended arguments are not enabled, the argument would be "log:off". Extended arguments are enabled from the arguments passed to the `CommandLine` constructor.
+If extended arguments are enabled, the argument is "log", it's a flag argument because it was preceded with a hyphen, and "off" is the extended argument. If extended arguments are not enabled, the argument would be "log:off". Extended arguments are enabled via an argument passed to the `CommandLine` constructor.
 
-Any argument, flag or extended argument can be enclosed in single or double quotes, providing support for arguments that contain whitespace or other special characters.
-
-**IMPORTANT:** Note that the first argument is always ignored. This is because `Environment.CommandLine` always includes the application name (with or without a full path) as the first item on the command line. If you obtain the command line from somewhere else, you'll need to ensure it follows this same standard, or else add a placeholder application name at the start of the command line.
+Any argument, flag argument, or extended argument can be enclosed in single or double quotes, providing support for arguments that contain whitespace or other special characters. (In the case of flag arguments, the hyphen or forward slash must not be enclosed in quotes.) And no space is required between flag arguments.
 
 # Usage
 
-The `CommandLine` constructor accepts a command line and an option Boolean value that indicates if extended arguments are supported.
+The `CommandLine` constructor accepts an optional Boolean value that specifies if extended arguments are supported. Call the `Parse()` method to parse a command line.
 
 ```cs
 // Construct a CommandLine instance and enable extended arguments
-CommandLine commandLine = new CommandLine(Environment.CommandLine, true);
+CommandLine commandLine = new CommandLine(true);
+
+// Parse Environment.CommandLine
+commandLine.Parse();
 
 foreach (CommandLineArgument argument in commandLine.Arguments)
 {
@@ -42,37 +45,34 @@ foreach (CommandLineArgument argument in commandLine.Arguments)
 }
 ```
 
-Once a `CommandLine` instance has been created, you can use it to process additional command lines by using the `ParseCommandLine()` method.
+In the example above, the `Parse()` method parses `Environment.CommandLine` and automatically discards the application name. `Parse()` is overloaded with a version that accepts a command-line argument. When using the second version, the application name is not discarded. So take care when calling the second version that your command line does not include the application name unless you want that to be returned as one of the arguments.
 
-Additional methods are provided to simply processing a command line. You can use the `HasArgument()` method to determine if a particular argument has been specified. Similiarly, use the `HasFlagArgument()` method to determine if a particular flag argument has been specified. If you need to further inspect the argument, you can instead use the `GetArgument()` and `GetFlagArgument()` methods.
+`CommandLineParser` provides additional methods for examing the arguments that were parsed. You can use the `HasArgument()` method to determine if a particular argument has been specified. Similiarly, use the `HasFlagArgument()` method to determine if a particular flag argument has been specified. If you need to inspect the arguments, you can instead use the `GetArgument()` and `GetFlagArgument()` methods.
 
-You might also find it useful to process regular arguments and flag arguments separately. Use the `GetArguments()` and `GetFlagArguments()` methods to retrieve
-
-
-
+You might also find it useful to process regular arguments and flag arguments separately. Use the `GetArguments()` method to retrieve all of the regular arguments, and the `GetFlagArguments()` method to retrieve all of the flag arguments.
 
 # Examples
 
-Example: `ExeName filename.ext`
+Example: `filename.ext`
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
 | filename.ext | *NULL* | False |
 
-Example: `ExeName infile.ext outfile.ext`
+Example: `infile.ext outfile.ext`
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
 | infile.ext | *NULL* | False |
 | outfile.ext | *NULL* | False |
 
-Example: `ExeName "Long File Name.ext"`
+Example: `"Long File Name.ext"`
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
 | Long File Name.ext | *NULL* | False |
 
-Example: `ExeName filename.ext -a /b -c`
+Example: `filename.ext -a /b -c`
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
@@ -81,7 +81,7 @@ Example: `ExeName filename.ext -a /b -c`
 | b | *NULL* | True |
 | c | *NULL* | True |
 
-Example: `ExeName filename.ext /mode:read-option:off` (supportExtendedArguments == False)
+Example: `filename.ext /mode:read-option:off` (supportExtendedArguments == False)
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
@@ -89,7 +89,7 @@ Example: `ExeName filename.ext /mode:read-option:off` (supportExtendedArguments 
 | mode:read | *NULL* | True |
 | option:off | *NULL* | True |
 
-Example: `ExeName filename.ext /mode:read-option:off` (supportExtendedArguments == True)
+Example: `filename.ext /mode:read-option:off` (supportExtendedArguments == True)
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
@@ -97,7 +97,7 @@ Example: `ExeName filename.ext /mode:read-option:off` (supportExtendedArguments 
 | mode | read | True |
 | option | off | True |
 
-Example: `ExeName /a infile.ext -b/c outfile.ext /d-e/f /g -h:yes` (supportExtendedArguments == False)
+Example: `/a infile.ext -b/c outfile.ext /d-e/f /g -h:yes` (supportExtendedArguments == False)
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
@@ -112,7 +112,7 @@ Example: `ExeName /a infile.ext -b/c outfile.ext /d-e/f /g -h:yes` (supportExten
 | g | *NULL* | True |
 | h:yes | *NULL* | True |
 
-Example: `ExeName /a infile.ext -b/c outfile.ext /d-e/f /g -h:yes` (supportExtendedArguments == True)
+Example: `/a infile.ext -b/c outfile.ext /d-e/f /g -h:yes` (supportExtendedArguments == True)
 
 | Argument | Extended Argument | Is Flag 
 |---|---|---|
