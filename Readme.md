@@ -28,6 +28,7 @@ The `CommandLine` constructor accepts an optional Boolean value that specifies i
 // Construct a CommandLine instance and enable extended arguments
 CommandLine commandLine = new CommandLine(true);
 
+// Parse Environment.CommandLine
 commandLine.Parse();
 
 foreach (CommandLineArgument argument in commandLine.Arguments)
@@ -44,7 +45,7 @@ foreach (CommandLineArgument argument in commandLine.Arguments)
 }
 ```
 
-In the example above, `Parse()` parses `Environment.CommandLine` and automatically discards the application name. `Parse()` is overloaded with a version that accepts a command-line argument. When using the second version, the application name is not discarded. So take care when calling the second version that your command line does not include the application name unless you want that to be returned as one of the arguments.
+In the example above, the `Parse()` method parses `Environment.CommandLine` and automatically discards the application name. `Parse()` is overloaded with a version that accepts a command-line argument. When using the second version, the application name is not discarded. So take care when calling the second version that your command line does not include the application name unless you want that to be returned as one of the arguments.
 
 `CommandLineParser` provides additional methods for examing the arguments that were parsed. You can use the `HasArgument()` method to determine if a particular argument has been specified. Similiarly, use the `HasFlagArgument()` method to determine if a particular flag argument has been specified. If you need to inspect the arguments, you can instead use the `GetArgument()` and `GetFlagArgument()` methods.
 
