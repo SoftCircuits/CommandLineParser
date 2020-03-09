@@ -15,9 +15,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>command-line command line parser</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <PackageReleaseNotes>1.0.2; Constructor no longer accepts a command-line argument (use one of two Parse() methods to perform actual parsing); Reworked unit tests; Added package icon.</PackageReleaseNotes>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <PackageReleaseNotes>Updated package icon.</PackageReleaseNotes>
     <PackageIcon>Logo_64x64.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
