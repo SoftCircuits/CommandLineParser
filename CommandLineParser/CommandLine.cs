@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019-2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -159,7 +159,7 @@ namespace SoftCircuits.CommandLineParser
         /// <param name="argument">The argument value to search for.</param>
         /// <param name="ignoreCase">Set to true if case does not matter.</param>
         /// <returns>The first matching argument or null if the argument was not found.</returns>
-        public CommandLineArgument GetArgument(string argument, bool ignoreCase = false)
+        public CommandLineArgument? GetArgument(string argument, bool ignoreCase = false)
         {
             return Arguments.FirstOrDefault(a => !a.IsFlag && string.Compare(a.Argument, argument, ignoreCase) == 0);
         }
@@ -171,7 +171,7 @@ namespace SoftCircuits.CommandLineParser
         /// <param name="flag">The flag argument to search for.</param>
         /// <param name="ignoreCase">Set to true if case does not matter.</param>
         /// <returns>The first matching flag argument or null if the flag argument was not found.</returns>
-        public CommandLineArgument GetFlagArgument(string flag, bool ignoreCase = false)
+        public CommandLineArgument? GetFlagArgument(string flag, bool ignoreCase = false)
         {
             return Arguments.FirstOrDefault(a => a.IsFlag && string.Compare(a.Argument, flag, ignoreCase) == 0);
         }

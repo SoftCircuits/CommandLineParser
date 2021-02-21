@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019-2020 Jonathan Wood (www.softcircuits.com)
+﻿// Copyright (c) 2020-2021 Jonathan Wood (www.softcircuits.com)
 // Licensed under the MIT license.
 //
 
@@ -18,13 +18,13 @@ namespace SoftCircuits.CommandLineParser
         /// <summary>
         /// The text value for this argument.
         /// </summary>
-        public string Argument { get; internal set; }
+        public string? Argument { get; internal set; }
 
         /// <summary>
         /// Returns the extended argument, if any. Extended arguments are in the
         /// form Argument:ExtendedArgument or -Argument:ExtendedArgument. Will be
         /// null if the argument has no extended argument.
         /// </summary>
-        public string ExtendedArgument { get; internal set; }
+        public string? ExtendedArgument { get; internal set; }
     }
 }
