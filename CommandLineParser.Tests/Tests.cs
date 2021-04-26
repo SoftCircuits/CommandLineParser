@@ -4,6 +4,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoftCircuits.CommandLineParser;
+using System;
 using System.Linq;
 
 namespace CommandLineParser.Tests
@@ -14,7 +15,7 @@ namespace CommandLineParser.Tests
         [TestMethod]
         public void TestArguments()
         {
-            CommandLine cl = new CommandLine(true);
+            CommandLine cl = new(true);
             cl.Parse("abc \"def ghi\" \"jkl\":abcdef");
 
             Assert.AreEqual(3, cl.Arguments.Count);
@@ -47,7 +48,7 @@ namespace CommandLineParser.Tests
         [TestMethod]
         public void TestFlags()
         {
-            CommandLine cl = new CommandLine(true);
+            CommandLine cl = new(true);
             cl.Parse("-a/b/c-d -e:arg/f:arg/g:arg-h:arg -i /j -k:\"a b c\"/l:\"a b c\" /m-n-o/p");
 
             Assert.AreEqual(16, cl.Arguments.Count);
@@ -140,7 +141,7 @@ namespace CommandLineParser.Tests
             Assert.AreEqual(false, cl.HasArgument("q"));
             Assert.AreEqual(false, cl.HasArgument("r"));
 
-            CollectionAssert.AreEqual(new string[] { }, cl.GetArguments().ToArray());
+            CollectionAssert.AreEqual(Array.Empty<string>(), cl.GetArguments().ToArray());
             CollectionAssert.AreEqual(new string[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p" },
                 cl.GetFlagArguments().Select(a => a.Argument).ToArray());
         }
@@ -148,7 +149,7 @@ namespace CommandLineParser.Tests
         [TestMethod]
         public void TestExtendedArguments()
         {
-            CommandLine cl = new CommandLine(false);
+            CommandLine cl = new(false);
             cl.Parse("-mode:read -mode2:write");
             Assert.AreEqual(2, cl.Arguments.Count);
             Assert.AreEqual(true, cl.Arguments[0].IsFlag);
@@ -157,12 +158,12 @@ namespace CommandLineParser.Tests
             Assert.AreEqual(true, cl.Arguments[1].IsFlag);
             Assert.AreEqual("mode2:write", cl.Arguments[1].Argument);
             Assert.AreEqual(null, cl.Arguments[1].ExtendedArgument);
-            CollectionAssert.AreEqual(new string[] { },
+            CollectionAssert.AreEqual(Array.Empty<string>(),
                 cl.GetArguments().Select(a => a.Argument).ToArray());
             CollectionAssert.AreEqual(new string[] { "mode:read", "mode2:write" },
                 cl.GetFlagArguments().Select(a => a.Argument).ToArray());
 
-            cl = new CommandLine(true);
+            cl = new(true);
             cl.Parse("  -mode:read -mode2:write  ");
             Assert.AreEqual(2, cl.Arguments.Count);
             Assert.AreEqual(true, cl.Arguments[0].IsFlag);
@@ -171,7 +172,7 @@ namespace CommandLineParser.Tests
             Assert.AreEqual(true, cl.Arguments[1].IsFlag);
             Assert.AreEqual("mode2", cl.Arguments[1].Argument);
             Assert.AreEqual("write", cl.Arguments[1].ExtendedArgument);
-            CollectionAssert.AreEqual(new string[] { },
+            CollectionAssert.AreEqual(Array.Empty<string>(),
                 cl.GetArguments().Select(a => a.Argument).ToArray());
             CollectionAssert.AreEqual(new string[] { "mode", "mode2" },
                 cl.GetFlagArguments().Select(a => a.Argument).ToArray());

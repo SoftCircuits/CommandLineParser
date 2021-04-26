@@ -44,7 +44,7 @@ namespace SoftCircuits.CommandLineParser
         public void Parse()
         {
             // Create parsing helper
-            ParsingHelper parser = new ParsingHelper(Environment.CommandLine);
+            ParsingHelper parser = new(Environment.CommandLine);
             // Discard application name
             ParseArgument(parser, false);
             // Call main parser
@@ -62,7 +62,7 @@ namespace SoftCircuits.CommandLineParser
         public void Parse(string commandLine)
         {
             // Create parsing helper
-            ParsingHelper parser = new ParsingHelper(commandLine);
+            ParsingHelper parser = new(commandLine);
             // Call main parser
             ParseInternal(parser);
         }
@@ -81,12 +81,14 @@ namespace SoftCircuits.CommandLineParser
             while (!parser.EndOfText)
             {
                 // Create new argument
-                CommandLineArgument argument = new CommandLineArgument();
+                CommandLineArgument argument = new();
 
                 // Determine if this is a flag
-                argument.IsFlag = FlagChars.Contains(parser.Peek());
-                if (argument.IsFlag)
+                if (FlagChars.Contains(parser.Peek()))
+                {
+                    argument.IsFlag = true;
                     parser++;
+                }
 
                 // Parse argument
                 argument.Argument = ParseArgument(parser, SupportExtendedArguments);
@@ -116,14 +118,14 @@ namespace SoftCircuits.CommandLineParser
         /// (The colon is considered to be the argument/extended argument delimiter). If false,
         /// the colon is considered a valid argument character.</param>
         /// <returns>The parsed argument.</returns>
-        private string ParseArgument(ParsingHelper parser, bool testForExtendedArgument)
+        private static string ParseArgument(ParsingHelper parser, bool testForExtendedArgument)
         {
             if (QuoteChars.Contains(parser.Peek()))
                 return parser.ParseQuotedText();
             // Parse unquoted argument
             return parser.ParseWhile(c => !char.IsWhiteSpace(c) &&
                 !FlagChars.Contains(c) &&
-                (!testForExtendedArgument || parser.Peek() != ExtendedArgumentDelimiter));
+                (testForExtendedArgument == false || parser.Peek() != ExtendedArgumentDelimiter));
         }
 
         /// <summary>

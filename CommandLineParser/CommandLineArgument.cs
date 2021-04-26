@@ -18,7 +18,7 @@ namespace SoftCircuits.CommandLineParser
         /// <summary>
         /// The text value for this argument.
         /// </summary>
-        public string? Argument { get; internal set; }
+        public string Argument { get; internal set; }
 
         /// <summary>
         /// Returns the extended argument, if any. Extended arguments are in the
@@ -26,5 +26,12 @@ namespace SoftCircuits.CommandLineParser
         /// null if the argument has no extended argument.
         /// </summary>
         public string? ExtendedArgument { get; internal set; }
+
+        public CommandLineArgument()
+        {
+            IsFlag = false;
+            Argument = string.Empty;
+            ExtendedArgument = null;
+        }
     }
 }

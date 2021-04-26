@@ -10,9 +10,7 @@
     <PackageId>SoftCircuits.CommandLineParser</PackageId>
     <Authors>Jonathan Wood</Authors>
     <Company>SoftCircuits</Company>
-    <Description>Simple and lightweight command-line parser. Supports regular arguments, flag arguments and extended arguments (in the form: -mode:extArg). Arguments, flag arguments, and extended arguments can all be wrapped in quotes in order to include whitespace.
-
-Now targets .NET Standard 2.0 or .NET 5.0 and supports nullable reference types.</Description>
+    <Description>Simple and lightweight command-line parser. Supports regular arguments, flag arguments and extended arguments (in the form: -mode:extArg). Arguments, flag arguments, and extended arguments can all be wrapped in quotes in order to include whitespace. Now targets .NET Standard 2.0 or .NET 5.0 and supports nullable reference types.</Description>
     <Copyright>Copyright © 2020-2021 SoftCircuits</Copyright>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/SoftCircuits/CommandLineParser</PackageProjectUrl>
@@ -20,9 +18,9 @@ Now targets .NET Standard 2.0 or .NET 5.0 and supports nullable reference types.
     <RepositoryType>git</RepositoryType>
     <PackageTags>command-line command line parser</PackageTags>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <PackageReleaseNotes>Now targets .NET Standard 2.0 or .NET 5.0 and supports nullable reference types.</PackageReleaseNotes>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <PackageReleaseNotes>Minor updates and optimizations.</PackageReleaseNotes>
     <PackageIcon>Logo_64x64.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
@@ -39,7 +37,7 @@ Now targets .NET Standard 2.0 or .NET 5.0 and supports nullable reference types.
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SoftCircuits.Parsing.Helper" Version="1.0.10" />
+    <PackageReference Include="SoftCircuits.Parsing.Helper" Version="4.0.0" />
   </ItemGroup>
 
 </Project>
